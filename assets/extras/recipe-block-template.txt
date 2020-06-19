@@ -1,0 +1,7 @@
+<ul class="list-unstyled">
+    <li><strong>Ingredients: </strong> INGREDIENTS_PH</li>
+    <li><strong>Cooking Time: </strong> COOKING_TIME_PH</li>
+    <li><strong>Utensils: </strong> UTENSILS_PH</li>
+    <li><strong>Cooking Experience: </strong> LEVEL_PH</li>
+    <li><strong>Meal Type: </strong> TYPE_PH</li>
+</ul>
