@@ -20,14 +20,23 @@ registerBlockType( 'udemy/rich-text', {
 		return (
 			<div className={props.className}>
 				<h3>Rich text example block</h3>
-				<RichText />
+				<RichText tagName="div"
+						  multiline="p"
+						  placeholder={ __( 'Add your content here.', 'recipe' ) }
+						  onChange={ ( new_value ) => {
+							props.setAttributes({ message: new_value });
+						  }}
+						  value={ props.attributes.message } />
 			</div>
 		);
 	},
 	save: ( props ) => {
 		return (
-			<div className={props.className}>
+			<div>
 				<h3>Rich text example block</h3>
+				<div className="message-ctr">
+					{ props.attributes.message }
+				</div>
 			</div>
 		);
 	}
