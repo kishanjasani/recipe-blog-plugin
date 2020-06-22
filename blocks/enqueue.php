@@ -1,6 +1,6 @@
 <?php
 
-function r_enqueue_block_editor_assets(){
+function r_enqueue_block_editor_assets() {
     wp_register_script(
         'r_blocks_bundle',
         plugins_url( '/blocks/dist/bundle.js', RECIPE_PLUGIN_URL ),
