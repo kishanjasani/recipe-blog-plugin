@@ -3,10 +3,10 @@ import block_icons from '../icons/index';
 import btn_icon from './icon';
 import './editor.scss';
 
-const { registerBlockType }        =   wp.blocks;
-const { __ }                       =   wp.i18n;
-const { BlockControls }            =   wp.editor;
-const { Toolbar, Button, Tooltip } = wp.components;
+const { registerBlockType }                                         = wp.blocks;
+const { __ }                                                        =   wp.i18n;
+const { BlockControls,InspectorControls }                           = wp.editor;
+const { Toolbar, Button, Tooltip, PanelBody, PanelRow, FormToggle } = wp.components;
 
 registerBlockType( 'udemy/night-mode', {
     title:       __( 'Night Mode', 'recipe' ),
@@ -20,34 +20,49 @@ registerBlockType( 'udemy/night-mode', {
 		}
     },
     edit: ( props ) => {
-        return (
-            <div className={ props.className }>
-                <BlockControls>
-					<Toolbar>
-						<Tooltip text={ __( 'Night mode', 'recipe' ) }>
-							<Button className={ classnames(
-								'components-icon-button',
-								'components-toolbar__control',
-								{ 'is-active': props.attributes.night_mode }
-							) }
-							onClick = { () => {
-								props.setAttributes({
-									night_mode: !props.attributes.night_mode
-								})
-							}}>
-								{ btn_icon }
-							</Button>
-						</Tooltip>
-					</Toolbar>
-                </BlockControls>
-                <div className={ classnames(
-					"content-example",
-					{ 'night': props.attributes.night_mode }
-				)}>
-                    This is an example of a block with night mode.
-                </div>
-            </div>
-        );
+		const toggle_night_mode = () => {
+			props.setAttributes({
+				night_mode: !props.attributes.night_mode
+			});
+		}
+        return [
+			<div>
+				<InspectorControls>
+					<PanelBody title={ __( 'Night Mode', 'recipe' ) }>
+						<PanelRow>
+							<label htmlFor="udemy-recipe-night-mode-toggle">
+								{ __( 'Night Mode', 'recipe' ) }
+							</label>
+							<FormToggle id="udemy-recipe-night-mode-toggle"
+										checked={ props.attributes.night_mode}
+										onChange={ toggle_night_mode } />
+						</PanelRow>
+					</PanelBody>
+				</InspectorControls>
+				<div className={ props.className }>
+					<BlockControls>
+						<Toolbar>
+							<Tooltip text={ __( 'Night mode', 'recipe' ) }>
+								<Button className={ classnames(
+									'components-icon-button',
+									'components-toolbar__control',
+									{ 'is-active': props.attributes.night_mode }
+								) }
+								onClick = { toggle_night_mode }>
+									{ btn_icon }
+								</Button>
+							</Tooltip>
+						</Toolbar>
+					</BlockControls>
+					<div className={ classnames(
+						"content-example",
+						{ 'night': props.attributes.night_mode }
+					)}>
+						This is an example of a block with night mode.
+					</div>
+				</div>
+			</div>
+		]
     },
     save: ( props ) => {
         return (
