@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * Plugin Name: Recipe
  * Description: A simple WordPress plugin that allows user to create recipes and rate those recipes
  * Version: 1.0
@@ -8,9 +8,9 @@
  * Text Domain: recipe
  */
 
-if( !function_exists( 'add_action' ) ){
-    echo "Hi there! I'm just a plugin, not much I can do when called directly.";
-    exit;
+if ( ! function_exists( 'add_action' ) ) {
+	echo "Hi there! I'm just a plugin, not much I can do when called directly.";
+	exit;
 }
 
 // Setup
@@ -25,8 +25,10 @@ include( 'includes/front/enqueue.php' );
 include( 'process/rate-recipe.php' );
 include( 'includes/admin/init.php' );
 include( 'blocks/enqueue.php' );
+require dirname( RECIPE_PLUGIN_URL ) . '/includes/widget.php';
+require 'includes/widgets/daily-recipe.php';
 
-// Hooks
+// Hooks.
 register_activation_hook( __FILE__, 'r_activate_plugin' );
 add_action( 'init', 'recipe_init' );
 add_action( 'save_post_recipe', 'r_save_post_admin', 10, 3 );
@@ -37,5 +39,7 @@ add_action( 'wp_ajax_nopriv_r_rate_recipe', 'r_rate_recipe' );
 add_action( 'admin_init', 'recipe_admin_init' );
 add_action( 'enqueue_block_editor_assets', 'r_enqueue_block_editor_assets' );
 add_action( 'enqueue_block_assets', 'r_enqueue_block_assets' );
+add_action( 'widgets_init', 'r_widgets_init' );
+add_action( 'r_daily_recipe', 'r_daily_generate_recipe' );
 
-// Shortcodes
+// Shortcodes.
