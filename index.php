@@ -27,9 +27,13 @@ include( 'includes/admin/init.php' );
 include( 'blocks/enqueue.php' );
 require dirname( RECIPE_PLUGIN_URL ) . '/includes/widget.php';
 require 'includes/widgets/daily-recipe.php';
+require 'includes/cron.php';
+require 'includes/utility.php';
+require 'includes/deactivate.php';
 
 // Hooks.
 register_activation_hook( __FILE__, 'r_activate_plugin' );
+register_deactivation_hook( __FILE__, 'r_deactivate_plugin' );
 add_action( 'init', 'recipe_init' );
 add_action( 'save_post_recipe', 'r_save_post_admin', 10, 3 );
 add_filter( 'the_content', 'r_filter_recipe_content' );
