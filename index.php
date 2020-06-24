@@ -30,6 +30,7 @@ require 'includes/widgets/daily-recipe.php';
 require 'includes/cron.php';
 require 'includes/utility.php';
 require 'includes/deactivate.php';
+require 'includes/admin/dashboard-widget.php';
 
 // Hooks.
 register_activation_hook( __FILE__, 'r_activate_plugin' );
@@ -45,5 +46,6 @@ add_action( 'enqueue_block_editor_assets', 'r_enqueue_block_editor_assets' );
 add_action( 'enqueue_block_assets', 'r_enqueue_block_assets' );
 add_action( 'widgets_init', 'r_widgets_init' );
 add_action( 'r_daily_recipe', 'r_daily_generate_recipe' );
+add_action( 'wp_dashboard_setup', 'r_dashboard_widgets' );
 
 // Shortcodes.
